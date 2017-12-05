@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                Form
+            </title>
+        </meta>
+    </head>
+    <body>
+        <div class="order_call_modal">
+            <div class="messages-feedback-order-call">
+                <span>
+                </span>
+            </div>
+            <form action="#" id="order-call1" type="Post">
+                <select id="select" name="program">
+                    <option>
+                        Выберите программу
+                    </option>
+                    <option value="Дизайн интерьера: интенсив">
+                        Дизайн интерьера: интенсив
+                    </option>
+                    <option value="Дизайн интерьера: практик">
+                        Дизайн интерьера: практик
+                    </option>
+                    <option value="Дизайнер декоратор: интенсив">
+                        Дизайнер декоратор: интенсив
+                    </option>
+                    <option value="Ландшафтный дизайн: интенсив">
+                        Ландшафтный дизайн: интенсив
+                    </option>
+                    <option value="Графический дизайн: интенсив">
+                        Графический дизайн: интенсив
+                    </option>
+                    <option value="Дизайн одежды">
+                        Дизайн одежды
+                    </option>
+                </select>
+                <input id="name" name="company" placeholder="Ваше имя" required="" type="text">
+                    <input id="email" name="email" placeholder="Ваш email" required="" type="text">
+                        <input id="phone" name="phone" placeholder="Ваш телефон" required="" type="number">
+                            <span class="messages-feedback-order-call">
+                            </span>
+                        </input>
+                    </input>
+                </input>
+            </form>
+            <script>
+                function processForm(){
+                                    var user_phone = document.getElementById('phone').value;
+                                    var user_name = document.getElementById('name').value;
+                                    var user_email = document.getElementById('email').value;
+                                    var e = document.getElementById("select");
+                                    var value = e.options[e.selectedIndex].value;
+                                    var text = e.options[e.selectedIndex].text;
+                                    var dat = JSON.stringify(user_phone);
+                                    $.ajax({
+                                        url: "form.php",
+                                        type: "post",
+                                        dataType: "json",
+                                        data: {
+                                            "user_name": user_name,
+                                            "user_phone": dat,
+                                            "user_email": user_email,
+                                            "user_select": value
+                                        },
+                                        success: function(data){
+                                            $('.messages-feedback-order-call span').html(data.result).fadeOut( 3600, "linear");
+                                            if(data.result === "<span style='color: green;font-weight:bold;'>Спасибо. Наш менеджер свяжется с Вами в ближайшее время!</span>"){
+                                                console.log('Попал сюда');
+                                                $('.form-slider-main input').map(function(item,index){
+                                                    $(index).val('');
+                                                    $(index).removeClass('validate');
+                                                });
+                                            } else {
+                                                console.log('Не попал сюда! Функция mail не сработала!');
+                                            }
+                                        }});}
+            </script>
+        </div>
+        <button type="reset">
+            Отмена
+        </button>
+        <button type="submit" onclick="processForm();">
+            Заказать
+        </button>
+    </body>
+</html>
