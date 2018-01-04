@@ -9,10 +9,7 @@
     </head>
     <body>
         <div class="order_call_modal">
-            <div class="messages-feedback-order-call">
-                <span>
-                </span>
-            </div>
+            <div class="messages-feedback-order-call"><span></span></div>
             <form action="#" id="order-call1" type="Post">
                 <select id="select" name="program">
                     <option>
@@ -38,16 +35,16 @@
                     </option>
                 </select>
                 <input id="name" name="company" placeholder="Ваше имя" required="" type="text">
-                    <input id="email" name="email" placeholder="Ваш email" required="" type="text">
-                        <input id="phone" name="phone" placeholder="Ваш телефон" required="" type="number">
-                            <span class="messages-feedback-order-call">
-                            </span>
-                        </input>
-                    </input>
-                </input>
+                <input id="email" name="email" placeholder="Ваш email" required="" type="text">
+                <input id="phone" name="phone" placeholder="Ваш телефон" required="" type="number">              
+                <button type="reset"> Отмена</button>
+                 <button type="submit"> Заказать </button>
             </form>
-            <script>
-                function processForm(){
+        </div>
+<script>
+// of course you need jquery for this
+                $("#order-call1").submit(function(e){
+                    e.preventDefault();
                                     var user_phone = document.getElementById('phone').value;
                                     var user_name = document.getElementById('name').value;
                                     var user_email = document.getElementById('email').value;
@@ -55,7 +52,18 @@
                                     var value = e.options[e.selectedIndex].value;
                                     var text = e.options[e.selectedIndex].text;
                                     var dat = JSON.stringify(user_phone);
-                                    $.ajax({
+// simple validation
+                    if(user_name == ''){
+                        document.getElementById('name').style.border = "1px solid red";
+                    }
+                    else if(user_email.length < 5){
+                        document.getElementById('email').style.border = "1px solid red";
+                    }
+                    else if(user_phone.length < 5){
+                        document.getElementById('phone').style.border = "1px solid red";
+                    }
+                    else if ((user_name != '')&&(user_email != '')&&(user_phone != '')){
+                               $.ajax({
                                         url: "form.php",
                                         type: "post",
                                         dataType: "json",
@@ -76,14 +84,21 @@
                                             } else {
                                                 console.log('Не попал сюда! Функция mail не сработала!');
                                             }
-                                        }});}
+                                        }});
+                        
+// send second ajax request to google sheets
+// url get from codeGs 
+// create table in google sheet, create a google script inside TOOLS/SCRIPT EDITOR 
+// insert code in codeGs file and dont forget change id to your sheet
+// if goole create url and in url after macros/ and before s/ you find other symbols and slashes delete them
+                  var script_url = "https://script.google.com/macros/s/YOURID/exec";
+				  var url = script_url + "?callback=ctrlq&phone="+user_phone+"&name="+user_name+"&email="+user_email+"&action=insert";
+							$.ajax({
+								url: url,
+								type: "get",
+								dataType: "jsonp"});
+                             }                                 
+                });
             </script>
-        </div>
-        <button type="reset">
-            Отмена
-        </button>
-        <button type="submit" onclick="processForm();">
-            Заказать
-        </button>
     </body>
 </html>
