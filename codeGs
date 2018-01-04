@@ -1,0 +1,25 @@
+function doGet(e){  
+  var op = e.parameter.action; 
+//<--https://docs.google.com/spreadsheets/d/idgoeshere/edit#gid=0-->
+  var sheet=SpreadsheetApp.openById('SHHETID').getActiveSheet(); 
+
+  if(op=="insert")
+    return insert_value(e,sheet);  
+}
+ 
+function insert_value(request,sheet){
+  
+  var phone = request.parameter.phone;
+  var name = request.parameter.name;
+  var email = request.parameter.email;
+  var d = new Date();
+  var currentTime = d.toLocaleString();
+  sheet.appendRow([currentTime, name, phone, email]);
+  result = JSON.stringify({
+    "result": "Insertion successful"
+  });  
+  return ContentService
+  .createTextOutput(request.parameter.callback + "(" + result + ")")
+  .setMimeType(ContentService.MimeType.JAVASCRIPT);   
+  }
+  
