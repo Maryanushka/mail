@@ -30,8 +30,8 @@
     // функция отправки письма
     function send_mail($message){
         // почта, на которую придет письмо
-        $mail_toFirst = "marya.vadymovna@gmail.com"; 
-        //$mail_toSecond = "info.itmoko@gmail.comm"; 
+        $mail_toFirst = "youremail@gmail.com"; 
+        //$mail_toSecond = "youremail@gmail.comm"; 
         // тема письма
         $subject = "Заявка на обучение";
          
