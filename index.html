@@ -92,13 +92,16 @@
 // insert code in codeGs file and dont forget change id to your sheet
 // if goole create url and in url after macros/ and before s/ you find other symbols and slashes delete them
                   var script_url = "https://script.google.com/macros/s/YOURID/exec";
-				  var url = script_url + "?callback=ctrlq&phone="+user_phone+"&name="+user_name+"&email="+user_email+"&action=insert";
-							$.ajax({
-								url: url,
-								type: "get",
-								dataType: "jsonp"});
+		  var url = script_url + "?callback=ctrlq&phone="+user_phone+"&name="+user_name+"&email="+user_email+"&action=insert";
+			$.ajax({
+				url: url,
+				type: "get",
+				dataType: "jsonp"});
                              }                                 
                 });
+		  function ctrlq(e) {
+		    console.log(e.result);
+		}
             </script>
     </body>
 </html>
