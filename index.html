@@ -8,62 +8,54 @@
         </meta>
     </head>
     <body>
-        <div class="order_call_modal">
-            <div class="messages-feedback-order-call"><span></span></div>
-            <form action="#" id="order-call1" type="Post">
-                <select id="select" name="program">
-                    <option>
-                        Выберите программу
-                    </option>
-                    <option value="Дизайн интерьера: интенсив">
-                        Дизайн интерьера: интенсив
-                    </option>
-                    <option value="Дизайн интерьера: практик">
-                        Дизайн интерьера: практик
-                    </option>
-                    <option value="Дизайнер декоратор: интенсив">
-                        Дизайнер декоратор: интенсив
-                    </option>
-                    <option value="Ландшафтный дизайн: интенсив">
-                        Ландшафтный дизайн: интенсив
-                    </option>
-                    <option value="Графический дизайн: интенсив">
-                        Графический дизайн: интенсив
-                    </option>
-                    <option value="Дизайн одежды">
-                        Дизайн одежды
-                    </option>
-                </select>
-                <input id="name" name="company" placeholder="Ваше имя" required="" type="text">
-                <input id="email" name="email" placeholder="Ваш email" required="" type="text">
-                <input id="phone" name="phone" placeholder="Ваш телефон" required="" type="number">              
-                <button type="reset"> Отмена</button>
-                 <button type="submit"> Заказать </button>
-            </form>
-        </div>
+<form id="form11" class="form">
+	<div class="form-group name-group">
+		<input type="text"
+						class="form-control required name"
+						required="" name="myname"
+						placeholder="Имя"
+						data-validation="length alphanumeric"
+		 				data-validation-length="3-12"
+		 					ata-validation-error-msg="User name has to be an alphanumeric value (3-12 chars)">
+	</div>
+	<div class="form-group email-group">
+		<input type="text"
+						class="form-control required email"
+						required=""
+						name="email"
+						placeholder="Email"
+						name="email"
+						data-validation="email"
+						data-validation-error-msg="Please enter your truly email like example@gmail.com">
+	</div>
+	<div class="form-group phone-group">
+		<input type="text"
+						class="form-control required phone"
+						required=""
+						data-validation-length="10-20"
+						data-validation="number"
+						name="phone"
+						placeholder="Телефон"
+						data-validation-error-msg="Please enter your phone like 7(988)6665522">
+		<input type="hidden" name="formHidde" value="заказать звонок 'akmedical.joint-health.com.ua'">
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-md-auto">
+			<button type="submit" class="btn modal-btn">отправить</button>
+		</div>
+	</div>
+</form>
 <script>
 // for validation also you can use this http://www.formvalidator.net
 // of course you need jquery for this
                 $("#order-call1").submit(function(e){
                     e.preventDefault();
-                                    var user_phone = document.getElementById('phone').value;
-                                    var user_name = document.getElementById('name').value;
-                                    var user_email = document.getElementById('email').value;
-                                    var e = document.getElementById("select");
-                                    var value = e.options[e.selectedIndex].value;
-                                    var text = e.options[e.selectedIndex].text;
-                                    var dat = JSON.stringify(user_phone);
+                    var user_phone = document.getElementById('phone').value;
+                    var user_name = document.getElementById('name').value;
+                    var user_email = document.getElementById('email').value;       
+                    var dat = JSON.stringify(user_phone);
 // simple validation
-                    if(user_name == ''){
-                        document.getElementById('name').style.border = "1px solid red";
-                    }
-                    else if(user_email.length < 5){
-                        document.getElementById('email').style.border = "1px solid red";
-                    }
-                    else if(user_phone.length < 5){
-                        document.getElementById('phone').style.border = "1px solid red";
-                    }
-                    else if ((user_name != '')&&(user_email != '')&&(user_phone != '')){
+                 
                                $.ajax({
                                         url: "form.php",
                                         type: "post",
@@ -108,7 +100,7 @@
 // 		  };
 // 		  xhttp.open("GET", url, "jsonp");
 // 		  xhttp.send();
-		}
+		});
 		  function ctrlq(e) {
 		    console.log(e.result);
 		}
